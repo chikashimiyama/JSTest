@@ -1,0 +1,72 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Fade in Fade out test</title>
+</head>
+<body>
+  <script>
+
+    var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    var elementArray = {};
+    var gainNodeArray = {};
+    setupSoundStream("noise");
+    setupSoundStream("gliss");
+    function setupSoundStream(key){
+      elementArray[key] = createElement(key+".wav");
+      var source = audioCtx.createMediaElementSource(elementArray[key]);
+      gainNodeArray[key] = audioCtx.createGain();
+      source.connect(gainNodeArray[key]);
+      gainNodeArray[key].connect(audioCtx.destination);
+    }
+
+    function createElement(filePath){
+      var element = new Audio();
+      element.src = filePath;
+      element.control = false;
+      element.autoplay = false;
+      element.load();
+      return element;
+    }
+
+    function fadein(key) {
+      elementArray[key].pause();
+      elementArray[key].currentTime = 0.0;
+      elementArray[key].play();
+      var fadeInTime = parseInt(document.getElementById("fadeInTime-"+key).value);
+      gainNodeArray[key].gain.linearRampToValueAtTime(0, audioCtx.currentTime);
+      gainNodeArray[key].gain.linearRampToValueAtTime(1, audioCtx.currentTime+fadeInTime);
+    }
+
+    function fadeout(key) {
+      var fadeOutTime = parseInt(document.getElementById("fadeOutTime-"+key).value);
+      gainNodeArray[key].gain.linearRampToValueAtTime(1, audioCtx.currentTime);
+      gainNodeArray[key].gain.linearRampToValueAtTime(0, audioCtx.currentTime+fadeOutTime);
+    }
+  </script>
+<p>fade in / fade out within browser</p>
+<h2>source1</h2>
+<p>
+source file noise.wav <br/>
+fade in time <input type="number" id="fadeInTime-noise" value="1"><br/>
+fade out time <input type="number" id="fadeOutTime-noise" value="1">
+</p>
+<p>
+<button onclick="fadein('noise')">Fade In</button>
+<button onclick="fadeout('noise')">Fade Out</button>
+</p>
+
+<h2>source2</h2>
+<p>
+source file gliss.wav <br/>
+fade in time <input type="number" id="fadeInTime-gliss" value="1"><br/>
+fade out time <input type="number" id="fadeOutTime-gliss" value="1">
+</p>
+<p>
+<button onclick="fadein('gliss')">Fade In</button>
+<button onclick="fadeout('gliss')">Fade Out</button>
+</p>
+
+
+</body>
+</html>
