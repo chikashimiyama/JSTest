@@ -32,35 +32,21 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=2, minimum-scale=1, width=device-width">
 
-    <title>Howler Test</title>
-
+    <title>ZKM OCC Project</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
-<p>fade in / fade out within browser</p>
-<h2>source1</h2>
-<p>
-source file noise.wav <br/>
-fade in time <input type="number" id="fadeinTime-noise" value="1"><br/>
-fade out time <input type="number" id="fadeoutTime-noise" value="1">
+</div>
+<h3>Distance-based amplitude</h3>
+<p>Click a point OUTSIDE of the circles and drag the cursor into the circle.<br/>
+The loudness of the sound depends of the distance between the cursor and the center of the circles</p>
 </p>
-<p>
-<button id="fadein-noise">Fade In</button>
-<button id="fadeout-noise">Fade Out</button>
-</p>
-
-<h2>source2</h2>
-<p>
-source file gliss.wav <br/>
-fade in time <input type="number" id="fadeinTime-gliss" value="1"><br/>
-fade out time <input type="number" id="fadeoutTime-gliss" value="1">
-</p>
-<p>
-<button id="fadein-gliss">Fade In</button>
-<button id="fadeout-gliss">Fade Out</button>
-</p>
+<canvas id="myCanvas" width="500" height="500"> </canvas>
+<p id="coordinates"></p>
+</div>
 <script type="text/javascript" src="howler.js/dist/howler.js"></script>
 <script type="text/javascript" src="jquery/jquery-3.1.1.js"></script>
-<script type="text/javascript" src="main.js"></script>
+<script type="text/javascript" src="demo2.js"></script>
 
 </body>
 </html>

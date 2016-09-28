@@ -1,0 +1,17 @@
+#leftSide {
+	float: left;
+	background-color: lightblue;
+	margin: 20px;
+	padding: 20px;
+}
+
+#rightSide {
+	float: right;
+	background-color:lightgray;
+	margin: 20px;
+	padding: 20px;
+}
+
+#myCanvas {
+	border:1px solid #000000;
+}
