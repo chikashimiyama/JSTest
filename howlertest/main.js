@@ -1,26 +1,36 @@
-howlDictionary = {};
-soundDictionary = {};
-howlDictionary["noise"] = setupHowl("noise");
-howlDictionary["gliss"] = setupHowl("gliss");
+var howlDictionary = {}; // instances of howl class
+var sounds = ["noise", "gliss"];
 
-function setupHowl( sound ){
-	var howl = new Howl({ src: [sound + ".wav"] });
-	howl.preload = true;
-	return howl;
-}
+$("document").ready(function(){
 
-function fadein( sound ){
-	soundDictionary[sound] = howlDictionary[sound].stop();
-	soundDictionary[sound] = howlDictionary[sound].play();
-	howlDictionary[sound].fade(0, 1, 3000);
-}
-
-function fadeout( sound ){
-
-	howlDictionary[sound].fade(1, 0, 3000, soundDictionary[sound]);
-
-	// dosen't work
-	soundDictionary[sound].onfade = function(){
-		soundDictionary[sound] = howlDictionary[sound].stop();
+	var setupHowl = function( sound ){
+		var howl = new Howl({ src: [sound + ".wav"] });
+		howl.preload = true;
+		return howl;
 	};
-}
+	var createFadeInFunc = function(index){
+		return function() {
+			var soundName = sounds[index];
+			var time = parseFloat($("#fadeinTime-"+soundName).val());
+			howlDictionary[soundName].stop();
+			howlDictionary[soundName].play();
+			howlDictionary[soundName].fade(0, 1, time*1000);
+		}
+	};
+	var createFadeOutFunc = function(index){
+		return function() { 
+			var soundName = sounds[index];
+			var time = parseFloat($("#fadeoutTime-"+soundName).val());
+			howlDictionary[soundName].fade(1, 0, time*1000);
+		}
+	};
+
+	for(var i = 0; i < sounds.length; i++){
+		howlDictionary[sounds[i]] = setupHowl(sounds[i]);
+		$("#fadein-"+sounds[i] ).click(createFadeInFunc(i))
+		$("#fadeout-"+sounds[i] ).click(createFadeOutFunc(i));
+	}
+})
+
+
+
