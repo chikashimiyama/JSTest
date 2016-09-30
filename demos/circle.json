@@ -1,0 +1,16 @@
+{ 
+  "circle1": {
+    "type": "geojson",
+    "data": {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [23.719114, 37.958808]
+        },
+      "properties": {
+        "title": "My Sound",
+        "marker-symbol": "sound"
+      }
+    }
+  }
+}
